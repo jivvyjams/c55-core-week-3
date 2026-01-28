@@ -1,80 +1,45 @@
-// Temperature conversion and weather report for City 1
-let cityName1 = "Amsterdam";
-let tempCelsius1 = 22;
-let tempFahrenheit1 = (tempCelsius1 * 9 / 5) + 32;
-let tempKelvin1 = tempCelsius1 + 273.15;
-console.log("Weather Report for " + cityName1);
-console.log("Temperature: " + tempCelsius1 + "°C");
-console.log("Temperature: " + tempFahrenheit1 + "°F");
-console.log("Temperature: " + tempKelvin1 + "K");
-if (tempCelsius1 < 0) {
-  console.log("Status: Freezing");
-} else if (tempCelsius1 >= 0 && tempCelsius1 < 10) {
-  console.log("Status: Cold");
-} else if (tempCelsius1 >= 10 && tempCelsius1 < 20) {
-  console.log("Status: Mild");
-} else if (tempCelsius1 >= 20 && tempCelsius1 < 30) {
-  console.log("Status: Warm");
-} else {
-  console.log("Status: Hot");
+const cities = [
+  { city: "Amsterdam", temp: 22, windSpeed: 15 },
+  { city: "Berlin",    temp: 15, windSpeed: 20 },
+  { city: "Copenhagen",temp: -5, windSpeed: 25 }
+];
+
+convertToFahrenheit(temp) {
+  return temp * 9 / 5 + 32;
 }
-console.log("---");
 
-// Temperature conversion and weather report for City 2
-let cityName2 = "Berlin";
-let tempCelsius2 = 15;
-let tempFahrenheit2 = (tempCelsius2 * 9 / 5) + 32;
-let tempKelvin2 = tempCelsius2 + 273.15;
-console.log("Weather Report for " + cityName2);
-console.log("Temperature: " + tempCelsius2 + "°C");
-console.log("Temperature: " + tempFahrenheit2 + "°F");
-console.log("Temperature: " + tempKelvin2 + "K");
-if (tempCelsius2 < 0) {
-  console.log("Status: Freezing");
-} else if (tempCelsius2 >= 0 && tempCelsius2 < 10) {
-  console.log("Status: Cold");
-} else if (tempCelsius2 >= 10 && tempCelsius2 < 20) {
-  console.log("Status: Mild");
-} else if (tempCelsius2 >= 20 && tempCelsius2 < 30) {
-  console.log("Status: Warm");
-} else {
-  console.log("Status: Hot");
+convertToKelvin(temp) {
+  return temp + 273.15;
 }
-console.log("---");
 
-// Temperature conversion and weather report for City 3
-let cityName3 = "Copenhagen";
-let tempCelsius3 = -5;
-let tempFahrenheit3 = (tempCelsius3 * 9 / 5) + 32;
-let tempKelvin3 = tempCelsius3 + 273.15;
-console.log("Weather Report for " + cityName3);
-console.log("Temperature: " + tempCelsius3 + "°C");
-console.log("Temperature: " + tempFahrenheit3 + "°F");
-console.log("Temperature: " + tempKelvin3 + "K");
-if (tempCelsius3 < 0) {
-  console.log("Status: Freezing");
-} else if (tempCelsius3 >= 0 && tempCelsius3 < 10) {
-  console.log("Status: Cold");
-} else if (tempCelsius3 >= 10 && tempCelsius3 < 20) {
-  console.log("Status: Mild");
-} else if (tempCelsius3 >= 20 && tempCelsius3 < 30) {
-  console.log("Status: Warm");
-} else {
-  console.log("Status: Hot");
+function calcWindChill(temp, windSpeed) {
+  return 13.12 + 0.6215 * temp - 11.37 * Math.pow(windSpeed, 0.16) + 0.3965 * temp * Math.pow(windSpeed, 0.16);
 }
-console.log("---");
 
-// Wind chill calculation for City 1
-let windSpeed1 = 15;
-let windChill1 = 13.12 + 0.6215 * tempCelsius1 - 11.37 * Math.pow(windSpeed1, 0.16) + 0.3965 * tempCelsius1 * Math.pow(windSpeed1, 0.16);
-console.log("Wind chill in " + cityName1 + ": " + windChill1.toFixed(2) + "°C");
+function tempStatus(temp) {
+  if (temp < 0) {
+    return `Freezing`;
+  } else if (temp < 10) {
+    return `Cold`;
+  } else if (temp < 20) {
+    return `Mild`;
+  } else if (temp < 30) {
+    return `Warm`;
+  } else {
+    return `Hot`;
+}
+} 
 
-// Wind chill calculation for City 2
-let windSpeed2 = 20;
-let windChill2 = 13.12 + 0.6215 * tempCelsius2 - 11.37 * Math.pow(windSpeed2, 0.16) + 0.3965 * tempCelsius2 * Math.pow(windSpeed2, 0.16);
-console.log("Wind chill in " + cityName2 + ": " + windChill2.toFixed(2) + "°C");
+function printWeather(city, temp, windSpeed) {
+  const tempF = convertToFahrenheit(temp).toFixed(2);
+  const tempK = convertToKelvin(temp).toFixed(2);
+  const status = tempStatus(temp)
+  const windChill = calcWindChill(temp, windSpeed).toFixed(2);
 
-// Wind chill calculation for City 3
-let windSpeed3 = 25;
-let windChill3 = 13.12 + 0.6215 * tempCelsius3 - 11.37 * Math.pow(windSpeed3, 0.16) + 0.3965 * tempCelsius3 * Math.pow(windSpeed3, 0.16);
-console.log("Wind chill in " + cityName3 + ": " + windChill3.toFixed(2) + "°C");
+  console.log(`Weather Report for ${city}`);
+  console.log(`Temperature: ${temp} °C`);
+  console.log(`Temperature: ${tempF} °F`);
+  console.log(`Temperature: ${tempK} K`);
+  console.log(`Status: ${status}`);
+  console.log(`Wind chill in ${city}: ${windChill} °C`)
+}
