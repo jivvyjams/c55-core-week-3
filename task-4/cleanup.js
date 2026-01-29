@@ -1,14 +1,18 @@
+/* I could not figure out how to properly create arrays
+and call the function using them as input for the printWeather function
+*/
+
 const cities = [
   { city: "Amsterdam", temp: 22, windSpeed: 15 },
   { city: "Berlin",    temp: 15, windSpeed: 20 },
   { city: "Copenhagen",temp: -5, windSpeed: 25 }
 ];
 
-convertToFahrenheit(temp) {
+function convertToFahrenheit(temp) {
   return temp * 9 / 5 + 32;
 }
 
-convertToKelvin(temp) {
+function convertToKelvin(temp) {
   return temp + 273.15;
 }
 
